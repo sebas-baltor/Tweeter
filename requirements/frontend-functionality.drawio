@@ -1,0 +1,177 @@
+<mxfile host="app.diagrams.net" modified="2023-04-20T21:24:20.892Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="l31WXBDAUKBUxPbGG-BN" version="21.2.1" type="device">
+  <diagram name="Page-1" id="0783ab3e-0a74-02c8-0abd-f7b4e66b4bec">
+    <mxGraphModel dx="1803" dy="963" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="1c1d494c118603dd-1" value="Frontend" style="swimlane;html=1;childLayout=stackLayout;startSize=20;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="60" y="60" width="1590" height="990" as="geometry" />
+        </mxCell>
+        <mxCell id="1c1d494c118603dd-2" value="Login/create-accoutn" style="swimlane;html=1;startSize=20;" parent="1c1d494c118603dd-1" vertex="1">
+          <mxGeometry y="20" width="250" height="970" as="geometry" />
+        </mxCell>
+        <mxCell id="60571a20871a0731-4" value="" style="ellipse;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fillColor=#000000;fontFamily=Verdana;fontSize=12;align=center;" parent="1c1d494c118603dd-2" vertex="1">
+          <mxGeometry x="100" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1c1d494c118603dd-2" source="60571a20871a0731-8" target="3CZql_O5fvKOtooIoAri-77" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="60571a20871a0731-8" value="Login or create account" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-2" vertex="1">
+          <mxGeometry x="60" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1c1d494c118603dd-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;labelBackgroundColor=none;startArrow=none;startFill=0;startSize=5;endArrow=classicThin;endFill=1;endSize=5;jettySize=auto;orthogonalLoop=1;strokeWidth=1;fontFamily=Verdana;fontSize=12" parent="1c1d494c118603dd-2" source="60571a20871a0731-4" target="60571a20871a0731-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-77" value="close session" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-2" vertex="1">
+          <mxGeometry x="60" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1c1d494c118603dd-3" value="Home" style="swimlane;html=1;startSize=20;" parent="1c1d494c118603dd-1" vertex="1">
+          <mxGeometry x="250" y="20" width="500" height="970" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-42" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1c1d494c118603dd-3" source="3CZql_O5fvKOtooIoAri-39" target="3CZql_O5fvKOtooIoAri-41" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-88" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=oval;endFill=0;" parent="1c1d494c118603dd-3" source="3CZql_O5fvKOtooIoAri-39" target="3CZql_O5fvKOtooIoAri-80" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-39" value="Post new Tweet with or without image" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="17.5" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-91" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=oval;endFill=0;" parent="1c1d494c118603dd-3" source="3CZql_O5fvKOtooIoAri-41" target="3CZql_O5fvKOtooIoAri-90" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-41" value="Tweet" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="17.5" y="470" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-89" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;dashed=1;endArrow=oval;endFill=0;" parent="1c1d494c118603dd-3" source="3CZql_O5fvKOtooIoAri-80" target="3CZql_O5fvKOtooIoAri-41" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-80" value="I can choose if the tweet is public or only-follower" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="125.5" y="370" width="105" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-95" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=oval;endFill=0;" parent="1c1d494c118603dd-3" source="3CZql_O5fvKOtooIoAri-82" target="3CZql_O5fvKOtooIoAri-94" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-97" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=42.5;entryDy=0;entryPerimeter=0;dashed=1;endArrow=oval;endFill=0;" parent="1c1d494c118603dd-3" source="3CZql_O5fvKOtooIoAri-82" target="3CZql_O5fvKOtooIoAri-96" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-82" value="I can see tweet of people I follow" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="232.5" y="610" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-92" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;endArrow=oval;endFill=0;" parent="1c1d494c118603dd-3" source="3CZql_O5fvKOtooIoAri-86" target="3CZql_O5fvKOtooIoAri-90" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-86" value="I can comment, retweet, like or save tweet" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="177.5" y="510" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-90" value="comment with &lt;br&gt;image and like the comment" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="72.5" y="600" width="105" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-94" value="Comments" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="122.5" y="720" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-96" value="the comments should have a posted time" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="237.5" y="720" width="105" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-99" value="I can see the most&amp;nbsp; popular hashtag and people&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-3" vertex="1">
+          <mxGeometry x="342.5" y="670" width="152.5" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="1c1d494c118603dd-4" value="Explore" style="swimlane;html=1;startSize=20;" parent="1c1d494c118603dd-1" vertex="1">
+          <mxGeometry x="750" y="20" width="250" height="970" as="geometry" />
+        </mxCell>
+        <mxCell id="ct-koc0RcCCRBFefY_Tu-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1c1d494c118603dd-4" source="3CZql_O5fvKOtooIoAri-45" target="ct-koc0RcCCRBFefY_Tu-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-45" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fillColor=#000000;fontFamily=Verdana;fontSize=12;align=center;rotation=0;" parent="1c1d494c118603dd-4" vertex="1">
+          <mxGeometry y="180" width="250" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="ct-koc0RcCCRBFefY_Tu-22" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=oval;endFill=0;" edge="1" parent="1c1d494c118603dd-4" source="ct-koc0RcCCRBFefY_Tu-18" target="ct-koc0RcCCRBFefY_Tu-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ct-koc0RcCCRBFefY_Tu-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=oval;endFill=0;" edge="1" parent="1c1d494c118603dd-4" source="ct-koc0RcCCRBFefY_Tu-18" target="ct-koc0RcCCRBFefY_Tu-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ct-koc0RcCCRBFefY_Tu-18" value="I can see the top, latest tweet, or tweet with media" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" vertex="1" parent="1c1d494c118603dd-4">
+          <mxGeometry x="34.38" y="330" width="181.25" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ct-koc0RcCCRBFefY_Tu-19" value="Tweet" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" vertex="1" parent="1c1d494c118603dd-4">
+          <mxGeometry x="32.879999999999995" y="560" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ct-koc0RcCCRBFefY_Tu-20" value="I can choose to see the most popular people" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" vertex="1" parent="1c1d494c118603dd-4">
+          <mxGeometry x="140.88" y="460" width="105" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="1c1d494c118603dd-28" style="rounded=0;html=1;labelBackgroundColor=none;startArrow=none;startFill=0;startSize=5;endArrow=classicThin;endFill=1;endSize=5;jettySize=auto;orthogonalLoop=1;strokeWidth=1;fontFamily=Verdana;fontSize=12;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1c1d494c118603dd-1" source="60571a20871a0731-8" target="60571a20871a0731-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-1" value="Bookmarks" style="swimlane;html=1;startSize=20;" parent="1c1d494c118603dd-1" vertex="1">
+          <mxGeometry x="1000" y="20" width="250" height="970" as="geometry" />
+        </mxCell>
+        <mxCell id="ct-koc0RcCCRBFefY_Tu-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="3CZql_O5fvKOtooIoAri-1" source="3CZql_O5fvKOtooIoAri-46" target="ct-koc0RcCCRBFefY_Tu-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-46" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fillColor=#000000;fontFamily=Verdana;fontSize=12;align=center;rotation=0;" parent="3CZql_O5fvKOtooIoAri-1" vertex="1">
+          <mxGeometry y="180" width="250" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="ct-koc0RcCCRBFefY_Tu-24" value="I can see the saved tweets" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" vertex="1" parent="3CZql_O5fvKOtooIoAri-1">
+          <mxGeometry x="34.37" y="270" width="181.25" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-49" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1c1d494c118603dd-1" source="60571a20871a0731-3" target="3CZql_O5fvKOtooIoAri-39" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-30" value="Profile" style="swimlane;html=1;startSize=20;" parent="1c1d494c118603dd-1" vertex="1">
+          <mxGeometry x="1250" y="20" width="340" height="970" as="geometry" />
+        </mxCell>
+        <mxCell id="60571a20871a0731-3" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fillColor=#000000;fontFamily=Verdana;fontSize=12;align=center;rotation=0;" parent="3CZql_O5fvKOtooIoAri-30" vertex="1">
+          <mxGeometry x="-840" y="182" width="340" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-43" value="See my and other profiles" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="3CZql_O5fvKOtooIoAri-30" vertex="1">
+          <mxGeometry x="110" y="250" width="135" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-48" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3CZql_O5fvKOtooIoAri-30" source="3CZql_O5fvKOtooIoAri-47" target="3CZql_O5fvKOtooIoAri-43" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-47" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fillColor=#000000;fontFamily=Verdana;fontSize=12;align=center;rotation=0;" parent="3CZql_O5fvKOtooIoAri-30" vertex="1">
+          <mxGeometry y="182" width="190" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-58" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3CZql_O5fvKOtooIoAri-30" source="3CZql_O5fvKOtooIoAri-50" target="3CZql_O5fvKOtooIoAri-55" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-59" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=oval;endFill=0;" parent="3CZql_O5fvKOtooIoAri-30" source="3CZql_O5fvKOtooIoAri-50" target="3CZql_O5fvKOtooIoAri-54" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-50" value="View Tweets, retweets" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="3CZql_O5fvKOtooIoAri-30" vertex="1">
+          <mxGeometry x="110" y="350" width="135" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-75" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=oval;endFill=0;" parent="3CZql_O5fvKOtooIoAri-30" source="3CZql_O5fvKOtooIoAri-54" target="3CZql_O5fvKOtooIoAri-71" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-54" value="Filter Tweets by&amp;nbsp;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- Tweets&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- Tweets and replies&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- Media&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;-Likes" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" parent="3CZql_O5fvKOtooIoAri-30" vertex="1">
+          <mxGeometry x="190" y="433" width="128.75" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-56" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="3CZql_O5fvKOtooIoAri-30" source="3CZql_O5fvKOtooIoAri-43" target="3CZql_O5fvKOtooIoAri-50" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-72" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3CZql_O5fvKOtooIoAri-30" source="3CZql_O5fvKOtooIoAri-55" target="3CZql_O5fvKOtooIoAri-71" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-55" value="Tweet" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="3CZql_O5fvKOtooIoAri-30" vertex="1">
+          <mxGeometry x="70" y="440" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-71" value="see followers and following them or unfollow" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="3CZql_O5fvKOtooIoAri-30" vertex="1">
+          <mxGeometry x="97.5" y="580" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-85" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1c1d494c118603dd-1" source="60571a20871a0731-3" target="3CZql_O5fvKOtooIoAri-82" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-87" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1c1d494c118603dd-1" source="60571a20871a0731-3" target="3CZql_O5fvKOtooIoAri-86" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CZql_O5fvKOtooIoAri-100" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1c1d494c118603dd-1" source="60571a20871a0731-3" target="3CZql_O5fvKOtooIoAri-99" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
