@@ -14,19 +14,19 @@ export default function Navbar() {
       </div>
 
       <div className="hidden w-1/4 lg:flex justify-between gap-6">
-        <a href="#" className="group">
+        <a href="/" className="group">
           <div className="relative group-hover:text-blue-500">
             Home
             <span className="w-full h-[3px] rounded-sm bg-blue-500 absolute -bottom-[100%] right-0 -translate-y-[3px] opacity-0 group-hover:opacity-100"></span>
           </div>
         </a>
-        <a href="#" className="group">
+        <a href="/explore" className="group">
           <div className="relative group-hover:text-blue-500">
             Explore
             <span className="w-full h-[3px] rounded-sm bg-blue-500 absolute -bottom-[100%] right-0 -translate-y-[3px] opacity-0 group-hover:opacity-100"></span>
           </div>
         </a>
-        <a href="#" className="group">
+        <a href="/bookmark" className="group">
           <div className="relative group-hover:text-blue-500">
             Bookmarks
             <span className="w-full h-[3px] rounded-sm bg-blue-500 absolute -bottom-[100%] right-0 -translate-y-[3px] opacity-0 group-hover:opacity-100"></span>
@@ -56,7 +56,7 @@ export default function Navbar() {
         </div>
         <div className="absolute right-0 top-[200%] w-40 py-2 p-3 bg-white rounded-md shadow-md z-10 flex flex-col gap-1">
           <a
-            href="#"
+            href="/profile/1"
             className="flex gap-4 flex-nowrap items-center px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-blue-600 rounded-md"
           >
             <BsPersonCircle />
@@ -87,19 +87,19 @@ export default function Navbar() {
         </div>
       </div>
       <div className="fixed bottom-0 right-0 w-full flex lg:hidden px-6 py-4 bg-white shadow-md justify-evenly gap-6 items-center text-2xl">
-        <a href="#" className="group">
+        <a href="/" className="group">
           <div className="relative group-hover:text-blue-500 text-gray-400">
             <AiFillHome />
             <span className="w-full h-[3px] rounded-sm bg-blue-500 absolute -bottom-[100%] right-0 -translate-y-[8px] opacity-0 group-hover:opacity-100"></span>
           </div>
         </a>
-        <a href="#" className="group">
+        <a href="explore" className="group">
           <div className="relative group-hover:text-blue-500 text-gray-400">
             <AiFillCompass />
             <span className="w-full h-[3px] rounded-sm bg-blue-500 absolute -bottom-[100%] right-0 -translate-y-[8px] opacity-0 group-hover:opacity-100"></span>
           </div>
         </a>
-        <a href="#" className="group">
+        <a href="/bookmark" className="group">
           <div className="relative group-hover:text-blue-500 text-gray-400">
             <MdBookmark />
             <span className="w-full h-[3px] rounded-sm bg-blue-500 absolute -bottom-[100%] right-0 -translate-y-[8px] opacity-0 group-hover:opacity-100"></span>

@@ -2,7 +2,7 @@ import { BiImageAdd, BiWorld } from "react-icons/bi";
 import { BsFillPeopleFill } from "react-icons/bs";
 export default function PostTweet(){
     return(
-        <div className="p-4 rounded-lg bg-white flex flex-col gap-3">
+        <div className="p-4 rounded-lg bg-white flex flex-col gap-3 shadow-lg">
               <span className="font-bold">Tweet something</span>
               <hr className="bg-gray-100" />
               <form className="w-full">

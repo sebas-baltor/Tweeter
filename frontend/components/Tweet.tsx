@@ -52,19 +52,19 @@ export default function Tweet() {
               <div className="flex justify-between items-center">
                 <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md flex gap-2 items-center">
                   <RiMessage3Line />
-                  Comment
+                  <span className="hidden md:block">Comment</span>
                 </button>
                 <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md flex gap-2 items-center hover:text-green-500">
                   <AiOutlineRetweet />
-                  Retweets
+                  <span className="hidden md:block">Retweets</span>
                 </button>
                 <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md flex gap-2 items-center hover:text-red-500">
                   <AiOutlineHeart />
-                  Likes
+                  <span className="hidden md:block">Likes</span>
                 </button>
                 <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md flex gap-2 items-center hover:text-blue-500">
                   <BiBookmark />
-                  Saved
+                  <span className="hidden md:block">Saved</span>
                 </button>
               </div>
               <hr className="bg-gray-300 mt-1" />
