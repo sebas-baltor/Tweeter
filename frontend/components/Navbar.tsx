@@ -2,13 +2,18 @@ import { AiFillHome, AiFillCompass } from "react-icons/ai";
 import { MdBookmark, MdSettings } from "react-icons/md";
 import { BsPersonCircle, BsFillPeopleFill } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
+import Image from "next/image";
+import logo from "@/public/tweeter.svg"
 export default function Navbar() {
   return (
     <nav className="w-full fixed z-10 top-0 right-0 flex items-center justify-between px-6 py-4 bg-white shadow-md">
       <div>
-        <img
-          src="./tweeter.svg"
+        <Image
+          src={logo}
           alt="Logo de la empresa"
+          width={150}
+          height={30}
+          layout="responsive"
           className="h-8"
         />
       </div>
@@ -43,6 +48,7 @@ export default function Navbar() {
               <img
                 src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
                 alt="Imagen de perfil"
+                
                 className="h-8 w-8 rounded-lg object-cover"
               />
             </div>
