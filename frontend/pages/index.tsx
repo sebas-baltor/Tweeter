@@ -11,11 +11,11 @@ export default function Home() {
     <>
       <section className="w-full p-3 xl:max-w-[1280px] mx-auto -translate-y-[5vh] my-28 mx-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 w-full px-4">
-          <div className="flex flex-col gap-3 col-span-2">
+          <div className="flex flex-col gap-3 col-span-2 row-start-2 lg:row-start-1">
             <PostTweet/>
             <Tweet />
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 row-start-1">
             <Trending/>
             <FollowRecomendation/>
           </div>
