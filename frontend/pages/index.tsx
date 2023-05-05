@@ -1,10 +1,7 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import PostTweet from '@/components/PostTweet';
 import Tweet from '@/components/Tweet';
 import Trending from '@/components/Trending';
 import FollowRecomendation from '@/components/FollowRecomendation';
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
