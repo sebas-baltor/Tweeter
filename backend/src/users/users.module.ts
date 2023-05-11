@@ -33,5 +33,7 @@ import { extname } from 'path';
   ],
   controllers: [UsersController],
   providers: [UsersService],
+  // important to export to use in auth module then
+  exports:[UsersService]
 })
 export class UsersModule {}

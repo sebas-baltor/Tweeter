@@ -5,10 +5,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { FilesController } from './files/files.controller';
 import { AuthModule } from './auth/auth.module';
-
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [MongooseModule.forRoot("mongodb://127.0.0.1:27017/tweeter"), UsersModule, AuthModule],
+  imports: [
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/tweeter'),
+    UsersModule,
+    AuthModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
+  ],
   controllers: [AppController, FilesController],
   providers: [AppService],
 })

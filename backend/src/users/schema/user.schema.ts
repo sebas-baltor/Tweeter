@@ -30,15 +30,15 @@ export class User {
     tweets:Tweet[];
 
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"User"}]})
-    friends:User[];
+    follows:User[];
 
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"Tweet"}]})
-    savedTwets:Tweet[];
+    savedTweets:Tweet[];
 
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"Tweet"}]})
     retweets:Tweet[];
 
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"User"}]})
-    friendRequests:User[];
+    following:User[];
 }
 export const UserSchema = SchemaFactory.createForClass(User);

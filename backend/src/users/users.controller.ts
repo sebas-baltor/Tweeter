@@ -6,16 +6,14 @@ import {
   Param,
   UseInterceptors,
   UploadedFiles,
-  ParseFilePipe,
-  MaxFileSizeValidator,
-  FileTypeValidator,
   HttpCode,
+  HttpStatus,UseGuards,Request
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './schema/user.schema';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-
+import { AuthGuard } from 'src/auth/auth.guard';
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -51,15 +49,16 @@ export class UsersController {
       throw error;
     }
   }
-
+  @UseGuards(AuthGuard)
   @Get(':id')
   @HttpCode(404)
-  async findById(@Param('id') id): Promise<User> {
+  async findById(@Param('id') id,@Request() req): Promise<User> {
     return await this.usersService.findById(id);
   }
-
+  @HttpCode(HttpStatus.ACCEPTED)
   @Post("/:friendId/add-friend")
-  async addFriend(@Param("friendId") friendId) {
+  async addFriend(@Param("friendId") friendId,@Request() req) {
+    
     return "friend added"
   }
 }

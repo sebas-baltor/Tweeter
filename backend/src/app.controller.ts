@@ -7,6 +7,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    console.log(process.env.JWT_SECRET_KEY)
     return this.appService.getHello();
   }
 }
