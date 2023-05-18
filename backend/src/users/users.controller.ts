@@ -7,7 +7,9 @@ import {
   UseInterceptors,
   UploadedFiles,
   HttpCode,
-  HttpStatus,UseGuards,Request
+  HttpStatus,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,15 +20,13 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Post("create")
+  @Post('create')
   @UseInterceptors(
     // name of images to store
-    FileFieldsInterceptor(
-      [
-        { name: 'avatar', maxCount: 1 },
-        { name: 'background', maxCount: 1 },
-      ]
-    ),
+    FileFieldsInterceptor([
+      { name: 'avatar', maxCount: 1 },
+      { name: 'background', maxCount: 1 },
+    ]),
   )
   async create(
     @UploadedFiles()
@@ -39,26 +39,19 @@ export class UsersController {
     // path of every single image, make it easy to access for the client
     createUserDto.avatarPath = `/files/user-media/${files.avatar[0].filename}`;
     createUserDto.backgroundPath = `/files/user-media/${files.background[0].filename}`;
-    try{
-      // service to store a user
-      return await this.usersService.create(createUserDto);
-    }catch(error){
-      if (error.message === 'Email or Phone number already exists') {
-        return { message: 'Email or Phone number already exists' };
-      }
-      throw error;
-    }
+    // service to store a user
+    return await this.usersService.create(createUserDto);
   }
   @UseGuards(AuthGuard)
   @Get(':id')
   @HttpCode(404)
-  async findById(@Param('id') id,@Request() req): Promise<User> {
+  async findById(@Param('id') id, @Request() req): Promise<User> {
     return await this.usersService.findById(id);
   }
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.ACCEPTED)
-  @Post("/:friendId/add-friend")
-  async addFriend(@Param("friendId") friendId,@Request() req) {
-    
-    return "friend added"
+  @Post('follow/:followId')
+  async addFriend(@Param('followId') followId, @Request() req) {
+    return await this.usersService.followPeople({ id: req.user.id, followId });
   }
 }

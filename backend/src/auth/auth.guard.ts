@@ -34,8 +34,12 @@ export class AuthGuard implements CanActivate {
   // if the token is type bearer return the token to coonver else undefined
   private extractTokenFromHeader(request: Request): string | undefined {
     try{
-        const [type, token] = request.headers.authorization.split(' ') ?? [];
-    return type === 'Bearer' ? token : undefined;
+      if(!request.headers.authorization.includes("Bearer")){
+        return request.headers.authorization
+      }
+      const [type, token] = request.headers.authorization.split(' ') ?? [];
+      return type === 'Bearer' ? token : undefined;
+      
     }catch {
         throw new UnauthorizedException("No token provided");
       }

@@ -1,4 +1,6 @@
 import {
+  BadGatewayException,
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -32,7 +34,7 @@ export class UsersService {
 
   async findById(id: string) {
     try {
-      return await this.userModel.findById({ _id: id });
+      return await this.userModel.findById({ _id: id })
     } catch (error) {
       throw new NotFoundException('Wrong id');
     }
@@ -44,14 +46,21 @@ export class UsersService {
     );
   }
   async followPeople({ id, followId }: FollowRequest): Promise<string> {
-    const user = await this.userModel.findById(id);
-    const follow = await this.userModel.findById(followId);
+    try{
+      const user = await this.userModel.findById(id);
+      const follow = await this.userModel.findById(followId);
+    
 
-    console.log({ user, follow });
     // I´m following a user, but I dont want anymore
-    if (user.following.includes(follow)) {
-      let followIndex = user.following.indexOf(follow);
-      user.following.splice(followIndex, 1);
+    if (user.following.includes(follow.id)) {
+      console.log("ya son amigos")
+      // index of the people I follow
+      let index = user.following.indexOf(follow.id);
+      user.following.splice(index, 1);
+      // my index into the follower of the follow
+      index = follow.follows.indexOf(user.id);
+      follow.follows.splice(index, 1);
+
       user.save();
       follow.save();
       return 'unfollow';
@@ -61,5 +70,8 @@ export class UsersService {
     user.save();
     follow.save();
     return 'follow';
+  }catch{
+    throw new BadRequestException()
+  }
   }
 }
