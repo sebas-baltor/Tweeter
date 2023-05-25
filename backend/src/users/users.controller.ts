@@ -19,7 +19,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
-
+  @HttpCode(HttpStatus.CREATED)
   @Post('create')
   @UseInterceptors(
     // name of images to store
@@ -44,7 +44,7 @@ export class UsersController {
   }
   @UseGuards(AuthGuard)
   @Get(':id')
-  @HttpCode(404)
+  @HttpCode(HttpStatus.NOT_FOUND)
   async findById(@Param('id') id, @Request() req): Promise<User> {
     return await this.usersService.findById(id);
   }

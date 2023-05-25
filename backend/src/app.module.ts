@@ -6,8 +6,6 @@ import { UsersModule } from './users/users.module';
 import { FilesController } from './files/files.controller';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { TweetsController } from './tweets/tweets.controller';
-import { TweetsService } from './tweets/tweets.service';
 import { TweetsModule } from './tweets/tweets.module';
 
 @Module({
@@ -19,6 +17,7 @@ import { TweetsModule } from './tweets/tweets.module';
     }),
     UsersModule,
     AuthModule,
+    TweetsModule
   ],
   controllers: [AppController, FilesController],
   providers: [AppService],
