@@ -1,13 +1,17 @@
-import { IsNotEmpty,IsDate,IsBoolean } from "class-validator";
+import { IsNotEmpty,IsBooleanString,} from "class-validator";
 export class CreateTweetDto {
     @IsNotEmpty()
     from:string;
-    @IsDate()
-    publishDate:Date;
-    @IsBoolean()
+
+    @IsBooleanString()
     visibility:boolean;
+
+    @IsNotEmpty()
+    content:string;
+
+    publishDate:Date;
     
-    tweetImgPath:string;
+    imgPath:string;
 
     figure:[Object];
 }
