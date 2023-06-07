@@ -16,12 +16,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './schema/user.schema';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ApiTags,ApiOperation } from '@nestjs/swagger/dist/decorators';
+import { ApiTags,ApiOperation,ApiConsumes, ApiBearerAuth, ApiQuery, ApiParam } from '@nestjs/swagger/dist/decorators';
 @Controller('users')
 @ApiTags("users")
 export class UsersController {
   constructor(private usersService: UsersService) {}
-  @ApiOperation({ summary: 'Create a new user' })
+  @ApiOperation({ summary: 'create a new user' })
+  @ApiConsumes('multipart/form-data')
   @HttpCode(HttpStatus.CREATED)
   @Post('create')
   @UseInterceptors(
@@ -48,9 +49,15 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get(':id')
   @HttpCode(HttpStatus.NOT_FOUND)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'return a user by id' })
+  @ApiParam({name:"id",type:"ObjectId or string", description:"identify a every single user"})
   async findById(@Param('id') id, @Request() req): Promise<User> {
     return await this.usersService.findById(id);
   }
+  @ApiBearerAuth()
+  @ApiOperation({summary:"add a follow"})
+  @ApiParam({name:"followId",description:"Identify who is you want to follow",type:"ObjectId or string"})
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.ACCEPTED)
   @Post('follow/:followId')

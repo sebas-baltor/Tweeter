@@ -10,23 +10,31 @@ import { CreateTweetDto } from './dto/createTweet.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UsersService } from 'src/users/users.service';
-import * as fs from 'fs';
 import InteractionDto, { TweetInteractionsString } from './dto/interaction.dto';
-
 @Injectable()
 export class TweetsService {
   constructor(
     @InjectModel(Tweet.name) private tweetModel: Model<Tweet>,
     private userService: UsersService,
   ) {}
-
+  async GetById(tweetId:string):Promise<Tweet>{
+    try{
+      return await this.tweetModel.findById({_id:tweetId});
+    }catch{
+      throw new NotFoundException("is it the right id?")
+    }
+  }
+  async GetByUserId(userId:string):Promise<Tweet[]>{
+    try{
+      return await this.tweetModel.find({from:userId}).populate("");
+    }catch{
+      throw new NotFoundException("is it the right id?")
+    }
+  }
   async Publish(createTweet: CreateTweetDto): Promise<Tweet> {
     let createdTweet = new this.tweetModel(createTweet);
-    let user = await this.userService.findById(createTweet.from);
-    user.tweets.push(createdTweet);
     try {
       await createdTweet.save();
-      await user.save();
       return;
     } catch (error) {
       if (error.code === 11000) {
