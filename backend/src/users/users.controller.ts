@@ -16,9 +16,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './schema/user.schema';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiTags,ApiOperation } from '@nestjs/swagger/dist/decorators';
 @Controller('users')
+@ApiTags("users")
 export class UsersController {
   constructor(private usersService: UsersService) {}
+  @ApiOperation({ summary: 'Create a new user' })
   @HttpCode(HttpStatus.CREATED)
   @Post('create')
   @UseInterceptors(
