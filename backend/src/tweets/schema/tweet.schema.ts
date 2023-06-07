@@ -30,7 +30,13 @@ export class Tweet {
   @Prop()
   imgPath: string;
 
-  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'User' }] })
-  retweetBy: User[];
+  @Prop({required:true})
+  isRetweet:boolean;
+
+  @Prop({required:false,type:Tweet})
+  originalTweet:Tweet;
+
+  @Prop()
+  retweetsNumber: number;
 }
 export const TweetSchema = SchemaFactory.createForClass(Tweet);
