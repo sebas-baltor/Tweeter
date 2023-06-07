@@ -26,17 +26,11 @@ export class User {
     @Prop({required:true})
     backgroundPath:string;
 
-    @Prop({type:[{type:SchemaTypes.ObjectId,ref:"Tweet"}]})
-    tweets:Tweet[];
-
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"User"}]})
     follows:User[];
 
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"Tweet"}]})
     savedTweets:Tweet[];
-
-    @Prop({type:[{type:SchemaTypes.ObjectId,ref:"Tweet"}]})
-    retweets:Tweet[];
 
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"User"}]})
     following:User[];
