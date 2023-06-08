@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { MulterModule } from '@nestjs/platform-express';
+import { MulterModule } from "@nestjs/platform-express";
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { TweetsController } from './tweets.controller';
 import { TweetsService } from './tweets.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Tweet, TweetSchema } from './schema/tweet.schema';
-import { UsersService } from 'src/users/users.service';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({

@@ -24,9 +24,6 @@ export class Tweet {
   @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'User' }] })
   likes: User[];
 
-  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'User' }] })
-  saved: User[];
-
   @Prop()
   imgPath: string;
 

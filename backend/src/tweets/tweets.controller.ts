@@ -10,30 +10,40 @@ import {
   HttpCode,
   HttpStatus,
   BadRequestException,
+  Param,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { TweetsService } from './tweets.service';
 import { CreateTweetDto } from './dto/createTweet.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import InteractionDto from './dto/interaction.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Tweet } from './schema/tweet.schema';
+import {
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 @ApiTags('tweets')
-@ApiBearerAuth()
 @Controller('tweets')
-@UseGuards(AuthGuard)
 export class TweetsController {
   constructor(private tweetService: TweetsService) {}
-  // the top tweets of the top people
+  //the top tweets of the top people
   @Get('top')
-  GetTopTweets(@Request() req) {
-    return 'top';
+  async GetTopTweets() {
+    return await this.tweetService.GetTop30Tweets();
   }
   // all tweets of a single user
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @Get('/:userId/all')
-  async GetAllUserTweets() {}
+  async GetAllUserTweets(@Param('userId') userId: string) {
+    return await this.tweetService.GetByUserId(userId);
+  }
   // publish a tweet
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @Post('publish')
+  @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('figure'))
   async PublishTweet(
     @Body() createTweetDto: CreateTweetDto,
@@ -59,13 +69,22 @@ export class TweetsController {
       let originalTweet = await this.tweetService.GetById(
         createTweetDto.originalTweetId,
       );
+      await this.tweetService.AddRetweetNumber(createTweetDto.originalTweetId);
       createTweetDto.originalTweet = originalTweet;
     }
     return await this.tweetService.Publish(createTweetDto);
   }
   @HttpCode(HttpStatus.ACCEPTED)
-  @Post('interaction')
-  async TweeterInteraction(@Body() interactionDto: InteractionDto) {
-    await this.tweetService.Interaction(interactionDto);
+  @UseGuards(AuthGuard)
+  @Post('like/:tweetId')
+  @ApiOperation({ summary: 'Increace or decreace the number of likes' })
+  @ApiParam({
+    name: 'tweetId',
+    type: 'ObjectId or string',
+    description: 'identify a every single tweet',
+  })
+  @ApiBearerAuth()
+  async AddLIke(@Param('tweetId') tweetId: string, @Request() req) {
+    await this.tweetService.AddOrRemoveLike(tweetId, req.user.id);
   }
 }
