@@ -30,7 +30,7 @@ export class Tweet {
   @Prop({required:true})
   isRetweet:boolean;
 
-  @Prop({required:false,type:Tweet})
+  @Prop({required:false,type:SchemaTypes.ObjectId,ref:"Tweet"})
   originalTweet:Tweet;
 
   @Prop()
