@@ -17,49 +17,53 @@ export class TweetsService {
   ) {}
   async GetById(tweetId: string): Promise<Tweet> {
     try {
-      return await this.tweetModel.findById(tweetId );
+      return await this.tweetModel.findById(tweetId);
     } catch {
       throw new NotFoundException('is it the right id?');
     }
   }
   async GetByUserId(userId: string): Promise<Tweet[]> {
     try {
-      return await this.tweetModel
-        .find({ from: userId })
+      return await this.tweetModel.find({ from: userId });
     } catch {
       throw new NotFoundException('is it the right id?');
     }
   }
   async GetTop30Tweets(): Promise<Tweet[]> {
     return await this.tweetModel
-      .aggregate([
-        {
-          $set: {
-            likesSize: { $size: '$likes' },
-            commentsSize: { $size: '$comments' },
-          },
-          $sort: {
-            likesSize: -1,
-            commentsSize: -1,
-          },
-          $project: {
-            likesSize: 0,
-            commentsSize: 0,
-          },
-        },
-      ])
-      .limit(30);
+    .aggregate([
+      {$match:{
+        visibility:true,
+        isRetweet:false
+      }},
+      { $project: {
+        _id: 1,
+        from:1,
+        publishDate:1,
+        content:1,
+        visibility:1,
+        imgPath:1,
+        commentsCount: { $size: "$comments" },
+        likesCount: { $size: "$likes" },
+      }},
+      { $sort: {
+        commentsCount: -1,
+        likesCount: -1,
+      }},
+      { $limit: 30 },
+    ])
+
+      
   }
   async AddRetweetNumber(tweetId: string) {
     try {
-      let tweet = await this.tweetModel.findById(tweetId);
-      tweet.retweetsNumber += 1;
-      return await tweet.save();
+      return await this.tweetModel.updateOne({_id:tweetId},{$inc:{retweetsNumber:1}});
     } catch {
       throw new BadRequestException();
     }
   }
-  async Publish(createTweet: CreateTweetDto): Promise<Tweet> {
+  async Publish(createTweet: CreateTweetDto, userId: string): Promise<Tweet> {
+    createTweet.from = userId;
     let createdTweet = new this.tweetModel(createTweet);
     try {
       await createdTweet.save();
@@ -73,21 +77,13 @@ export class TweetsService {
   }
   async AddOrRemoveLike(tweetId: string, id: string) {
     try {
-      let tweet = await this.tweetModel.findById(tweetId );
-      let whoReacted = await this.userService.findById(id);
-      if (!tweet || !whoReacted) {
-        return new NotFoundException();
+      let res = await this.tweetModel.updateOne({_id:tweetId,likes:{$in:[id]}},{
+        $pull:{likes:id}
+      })
+      if(res.modifiedCount === 0){
+        return await this.tweetModel.updateOne({_id:tweetId},{$push:{likes:id}})
       }
-      // if the interaction wasn't previoulsy triggered by the user
-      if (!tweet.likes.includes(whoReacted.id)) {
-        // stored the interaction in db
-        tweet.likes.push(whoReacted.id);
-      } else {
-        // the interaction was stored so we remove
-        let likeIndex = tweet.likes.indexOf(whoReacted.id);
-        tweet.likes.splice(likeIndex, 1);
-      }
-      return await tweet.save();
+      return res;
     } catch {
       throw new BadRequestException();
     }

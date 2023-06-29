@@ -2,8 +2,6 @@ import { IsNotEmpty,IsBooleanString} from "class-validator";
 import { Tweet } from "../schema/tweet.schema";
 import { ApiProperty } from "@nestjs/swagger";
 export class CreateTweetDto {
-    @ApiProperty({required:true,type:"ObjectId or string",description:"identify the current user"})
-    @IsNotEmpty()
     from:string;
     @ApiProperty({required:true,default:"true",type:"boolean string",example:"true",description:"represent the tweet's visivility true=everyone, false=just followers"})
     @IsBooleanString()

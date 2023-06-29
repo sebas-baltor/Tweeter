@@ -34,7 +34,7 @@ export class UsersService {
 
   async findById(id: string) {
     try {
-      return await this.userModel.findById({ _id: id })
+      return await this.userModel.findById(id,{password:0,email:0})
     } catch (error) {
       throw new NotFoundException('Wrong id');
     }

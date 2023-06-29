@@ -23,6 +23,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+import { type } from 'os';
 @ApiTags('tweets')
 @Controller('tweets')
 export class TweetsController {
@@ -46,9 +47,11 @@ export class TweetsController {
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('figure'))
   async PublishTweet(
+    @Request() req,
     @Body() createTweetDto: CreateTweetDto,
     @UploadedFile() figure?: Express.Multer.File,
   ) {
+    createTweetDto.isRetweet = Boolean(createTweetDto.isRetweet);
     createTweetDto.publishDate = new Date();
     // set the path of this resourse
     if (figure) {
@@ -60,19 +63,21 @@ export class TweetsController {
       (createTweetDto.originalTweetId === '' ||
         createTweetDto.originalTweetId === null)
     ) {
+      console.log("id but not reference")
       return new BadRequestException(
         'a retweet must have the original tweet reference',
       );
     }
     //else find the original tweet and embedding
-    if (createTweetDto.isRetweet) {
+    if (createTweetDto.isRetweet === true) {
+      console.log("retweet")
       let originalTweet = await this.tweetService.GetById(
         createTweetDto.originalTweetId,
       );
       await this.tweetService.AddRetweetNumber(createTweetDto.originalTweetId);
       createTweetDto.originalTweet = originalTweet;
     }
-    return await this.tweetService.Publish(createTweetDto);
+    return await this.tweetService.Publish(createTweetDto,req.user.id);
   }
   @HttpCode(HttpStatus.ACCEPTED)
   @UseGuards(AuthGuard)
