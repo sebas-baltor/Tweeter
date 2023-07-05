@@ -23,7 +23,6 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { type } from 'os';
 import { UsersService } from 'src/users/users.service';
 @ApiTags('tweets')
 @Controller('tweets')

@@ -3,7 +3,6 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
-  ForbiddenException,
 } from '@nestjs/common';
 import { Tweet } from './schema/tweet.schema';
 import { CreateTweetDto } from './dto/createTweet.dto';

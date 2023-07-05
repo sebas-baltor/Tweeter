@@ -7,6 +7,9 @@ import { FilesController } from './files/files.controller';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TweetsModule } from './tweets/tweets.module';
+import { CommentsService } from './comments/comments.service';
+import { CommentsController } from './comments/comments.controller';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -17,9 +20,10 @@ import { TweetsModule } from './tweets/tweets.module';
     }),
     UsersModule,
     AuthModule,
-    TweetsModule
+    TweetsModule,
+    CommentsModule
   ],
-  controllers: [AppController, FilesController],
-  providers: [AppService],
+  controllers: [AppController, FilesController, CommentsController],
+  providers: [AppService, CommentsService],
 })
 export class AppModule {}
