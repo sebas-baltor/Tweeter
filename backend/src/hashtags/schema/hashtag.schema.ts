@@ -6,7 +6,7 @@ export type HashtagDocument = HydratedDocument<Hashtag>
 @Schema()
 export class Hashtag {
     @Prop({required:true})
-    hastag:string;
+    hashtag:string;
 
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"Tweet"}]})
     tweetsWithIt:Tweet[];

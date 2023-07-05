@@ -16,7 +16,7 @@ export class Tweet {
   content: string;
 
   @Prop({ required: true })
-  visibility: boolean;
+  visibility: number;
 
   @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'Comment' }] })
   comments: Comment[];
@@ -28,7 +28,7 @@ export class Tweet {
   imgPath: string;
 
   @Prop({required:true})
-  isRetweet:boolean;
+  isRetweet:number;
 
   @Prop({required:false,type:SchemaTypes.ObjectId,ref:"Tweet"})
   originalTweet:Tweet;

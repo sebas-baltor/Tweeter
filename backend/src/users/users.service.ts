@@ -34,10 +34,13 @@ export class UsersService {
 
   async findById(id: string) {
     try {
-      return await this.userModel.findById(id,{password:0,email:0})
+      return await this.userModel.findById(id, { password: 0, email: 0 });
     } catch (error) {
       throw new NotFoundException('Wrong id');
     }
+  }
+  async findByIdWhereFollower(id:string,followerId:string):Promise<User>{
+    return await this.userModel.findOne({_id:id,follows:{$in:[followerId]}});
   }
   async findByEmail(email: string) {
     return await this.userModel.findOne(
@@ -46,32 +49,49 @@ export class UsersService {
     );
   }
   async followPeople({ id, followId }: FollowRequest): Promise<string> {
-    try{
-      const user = await this.userModel.findById(id);
-      const follow = await this.userModel.findById(followId);
-    
-
-    // I´m following a user, but I dont want anymore
-    if (user.following.includes(follow.id)) {
-      console.log("ya son amigos")
-      // index of the people I follow
-      let index = user.following.indexOf(follow.id);
-      user.following.splice(index, 1);
-      // my index into the follower of the follow
-      index = follow.follows.indexOf(user.id);
-      follow.follows.splice(index, 1);
-
-      user.save();
-      follow.save();
-      return 'unfollow';
+    try {
+      // if I follow a person I'm going to unfollow
+      let myRes = await this.userModel.updateOne(
+        { _id: id, following: { $in: [followId] } },
+        {
+          $pull: { following: followId },
+        },
+      );
+      // if the person I follow has my follow,cremove it
+      let followRes = await this.userModel.updateOne(
+        { _id: followId, follows: { $in: [id] } },
+        { $pull: { follows: id } },
+      );
+      // else I didn't follow the person and want to follow him
+      if (myRes.modifiedCount === 0) {
+        myRes = await this.userModel.updateOne(
+          { _id: id },
+          { $push: { following: followId } },
+        );
+      }
+      // append my follow to the follower of the person I want to follow
+      if (followRes.modifiedCount === 0) {
+        followRes = await this.userModel.updateOne(
+          { _id: followId },
+          { $push: { follows: id } },
+        );
+      }
+      return;
+    } catch {
+      throw new BadRequestException();
     }
-    user.following.push(follow);
-    follow.follows.push(user);
-    user.save();
-    follow.save();
-    return 'follow';
-  }catch{
-    throw new BadRequestException()
   }
+  async saveTweet(tweetId: string, id: string) {
+    // if I saved the tweet before, I remove it
+    let res = await this.userModel.updateOne(
+      { _id: id, savedTweets: { $in: [tweetId] } },
+      { $pull: { savedTweets: tweetId } },
+    );
+    // else the tweet wasn't saved so I save
+    if(res.modifiedCount ===0){
+      return await this.userModel.updateOne(
+        {_id:id},{$push:{savedTweets:tweetId}}
+      )
+    }
   }
 }

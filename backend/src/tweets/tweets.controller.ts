@@ -24,10 +24,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { type } from 'os';
+import { UsersService } from 'src/users/users.service';
 @ApiTags('tweets')
 @Controller('tweets')
 export class TweetsController {
-  constructor(private tweetService: TweetsService) {}
+  constructor(private tweetService: TweetsService,private userService: UsersService) {}
   //the top tweets of the top people
   @Get('top')
   async GetTopTweets() {
@@ -37,8 +38,8 @@ export class TweetsController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Get('/:userId/all')
-  async GetAllUserTweets(@Param('userId') userId: string) {
-    return await this.tweetService.GetByUserId(userId);
+  async GetAllUserTweets(@Param('userId') userId: string,@Request() req) {
+    return await this.tweetService.GetAllByUserId(userId,req.user.id);
   }
   // publish a tweet
   @ApiBearerAuth()
@@ -51,7 +52,7 @@ export class TweetsController {
     @Body() createTweetDto: CreateTweetDto,
     @UploadedFile() figure?: Express.Multer.File,
   ) {
-    createTweetDto.isRetweet = Boolean(createTweetDto.isRetweet);
+    createTweetDto.isRetweet = parseInt(createTweetDto.isRetweet.toString());
     createTweetDto.publishDate = new Date();
     // set the path of this resourse
     if (figure) {
@@ -59,20 +60,21 @@ export class TweetsController {
     }
     // if you are creating a retweet the origin tweet reference should bee empty
     if (
-      createTweetDto.isRetweet === true &&
+      createTweetDto.isRetweet === 1 &&
       (createTweetDto.originalTweetId === '' ||
-        createTweetDto.originalTweetId === null)
+        createTweetDto.originalTweetId === null ||
+        createTweetDto.originalTweetId === undefined)
     ) {
       console.log("id but not reference")
       return new BadRequestException(
         'a retweet must have the original tweet reference',
       );
     }
-    //else find the original tweet and embedding
-    if (createTweetDto.isRetweet === true) {
+    //else find the original tweet an increase the retweet number and embedding
+    if (createTweetDto.isRetweet === 1) {
       console.log("retweet")
-      let originalTweet = await this.tweetService.GetById(
-        createTweetDto.originalTweetId,
+      let originalTweet = await this.tweetService.GetOneById(
+        createTweetDto.originalTweetId,req.user.id
       );
       await this.tweetService.AddRetweetNumber(createTweetDto.originalTweetId);
       createTweetDto.originalTweet = originalTweet;
@@ -91,5 +93,18 @@ export class TweetsController {
   @ApiBearerAuth()
   async AddLIke(@Param('tweetId') tweetId: string, @Request() req) {
     await this.tweetService.AddOrRemoveLike(tweetId, req.user.id);
+  }
+
+  @HttpCode(HttpStatus.ACCEPTED)
+  @UseGuards(AuthGuard)
+  @Post("save/:tweetId")
+  @ApiOperation({summary:"save or remove a tweet from the saved tweets stack"})
+  @ApiParam({name: 'tweetId',
+  type: 'ObjectId or string',
+  description: 'identify a every single tweet',})
+  @ApiBearerAuth()
+  async Save(@Param("tweetId") tweetId:string,@Request() req){
+    await this.tweetService.GetOneById(tweetId,req.user.id);
+    await this.userService.saveTweet(tweetId,req.user.id);
   }
 }
