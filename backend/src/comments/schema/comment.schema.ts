@@ -2,7 +2,7 @@ import {Prop,Schema,SchemaFactory} from "@nestjs/mongoose";
 import { HydratedDocument,SchemaTypes } from "mongoose";
 import { Tweet } from "../../tweets/schema/tweet.schema";
 
-export type CommentDocument = HydratedDocument<Comment>
+export type CommentDocument = HydratedDocument<Comment>;
 @Schema()
 export class Comment{
     @Prop({required:true})
@@ -16,8 +16,9 @@ export class Comment{
 
     @Prop()
     commentImgPath:string
+    
 
     @Prop({type:[{type:SchemaTypes.ObjectId,ref:"Comment"}]})
     replies:Comment[];
 }
-export const CommentSchema = SchemaFactory.createForClass(Comment)
+export const CommentSchema = SchemaFactory.createForClass(Comment);
