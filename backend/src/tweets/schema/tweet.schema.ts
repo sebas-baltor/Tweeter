@@ -18,9 +18,6 @@ export class Tweet {
   @Prop({ required: true })
   visibility: number;
 
-  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'Comment' }] })
-  comments: Comment[];
-
   @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'User' }] })
   likes: User[];
 

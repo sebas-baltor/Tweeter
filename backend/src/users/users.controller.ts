@@ -46,13 +46,16 @@ export class UsersController {
     // service to store a user
     return await this.usersService.create(createUserDto);
   }
-  @UseGuards(AuthGuard)
+  @Get('top')
+  @ApiOperation({ summary: 'return the top 20 most followed users' })
+  async GetTop20(): Promise<User[]> {
+    return await this.usersService.top();
+  }
   @Get(':id')
   @HttpCode(HttpStatus.NOT_FOUND)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'return a user by id' })
   @ApiParam({name:"id",type:"ObjectId or string", description:"identify a every single user"})
-  async findById(@Param('id') id, @Request() req): Promise<User> {
+  async findById(@Param('id') id): Promise<User> {
     return await this.usersService.findById(id);
   }
   @ApiBearerAuth()

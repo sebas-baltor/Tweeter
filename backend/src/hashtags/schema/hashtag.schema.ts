@@ -2,7 +2,7 @@ import {Prop,Schema, SchemaFactory}from "@nestjs/mongoose";
 import { HydratedDocument, SchemaTypes } from "mongoose";
 import { Tweet } from "../../tweets/schema/tweet.schema";
 
-export type HashtagDocument = HydratedDocument<Hashtag>
+export type HashtagDocument = HydratedDocument<Hashtag>;
 @Schema()
 export class Hashtag {
     @Prop({required:true})

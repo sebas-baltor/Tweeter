@@ -24,10 +24,17 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UsersService } from 'src/users/users.service';
+import { CommentsService } from 'src/comments/comments.service';
+import { ObjectId } from 'mongoose';
+import { ExcludeCommentDto } from 'src/comments/dto/exclude-comment.dto';
 @ApiTags('tweets')
 @Controller('tweets')
 export class TweetsController {
-  constructor(private tweetService: TweetsService,private userService: UsersService) {}
+  constructor(
+    private tweetService: TweetsService,
+    private userService: UsersService,
+    private commentService: CommentsService,
+  ) {}
   //the top tweets of the top people
   @Get('top')
   async GetTopTweets() {
@@ -35,11 +42,33 @@ export class TweetsController {
   }
   // all tweets of a single user
   @ApiBearerAuth()
+  @ApiOperation({ summary: 'return all the tweets of a single user' })
+
   @UseGuards(AuthGuard)
   @Get('/:userId/all')
-  async GetAllUserTweets(@Param('userId') userId: string,@Request() req) {
-    return await this.tweetService.GetAllByUserId(userId,req.user.id);
+  @ApiParam({
+    name: 'userId',
+    type: 'ObjectId or string',
+    description: 'identify a every single user',
+  })
+  async GetAllUserTweets(@Param('userId') userId: string, @Request() req) {
+    return await this.tweetService.GetAllByUserId(userId, req.user.id);
   }
+  // return all tweet's comment
+  @Get('/:tweetId/all-comments')
+  @ApiParam({
+    name: 'tweetId',
+    type: 'ObjectId or string',
+    description: 'identify a every single tweet',
+  })
+  async GetAllCommentsExcept(
+    @Param('tweetId') tweetId: ObjectId,
+    @Body() {exclude}: ExcludeCommentDto,
+  ) {
+    console.log(exclude)
+    return await this.commentService.GetAllByIdAndNoReply(tweetId, exclude);
+  }
+
   // publish a tweet
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
@@ -64,21 +93,22 @@ export class TweetsController {
         createTweetDto.originalTweetId === null ||
         createTweetDto.originalTweetId === undefined)
     ) {
-      console.log("id but not reference")
+      console.log('id but not reference');
       return new BadRequestException(
         'a retweet must have the original tweet reference',
       );
     }
     //else find the original tweet an increase the retweet number and embedding
     if (createTweetDto.isRetweet === 1) {
-      console.log("retweet")
+      console.log('retweet');
       let originalTweet = await this.tweetService.GetOneById(
-        createTweetDto.originalTweetId,req.user.id
+        createTweetDto.originalTweetId,
+        req.user.id,
       );
       await this.tweetService.AddRetweetNumber(createTweetDto.originalTweetId);
       createTweetDto.originalTweet = originalTweet;
     }
-    return await this.tweetService.Publish(createTweetDto,req.user.id);
+    return await this.tweetService.Publish(createTweetDto, req.user.id);
   }
   @HttpCode(HttpStatus.ACCEPTED)
   @UseGuards(AuthGuard)
@@ -96,14 +126,18 @@ export class TweetsController {
 
   @HttpCode(HttpStatus.ACCEPTED)
   @UseGuards(AuthGuard)
-  @Post("save/:tweetId")
-  @ApiOperation({summary:"save or remove a tweet from the saved tweets stack"})
-  @ApiParam({name: 'tweetId',
-  type: 'ObjectId or string',
-  description: 'identify a every single tweet',})
+  @Post('save/:tweetId')
+  @ApiOperation({
+    summary: 'save or remove a tweet from the saved tweets stack',
+  })
+  @ApiParam({
+    name: 'tweetId',
+    type: 'ObjectId or string',
+    description: 'identify a every single tweet',
+  })
   @ApiBearerAuth()
-  async Save(@Param("tweetId") tweetId:string,@Request() req){
-    await this.tweetService.GetOneById(tweetId,req.user.id);
-    await this.userService.saveTweet(tweetId,req.user.id);
+  async Save(@Param('tweetId') tweetId: string, @Request() req) {
+    await this.tweetService.GetOneById(tweetId, req.user.id);
+    await this.userService.saveTweet(tweetId, req.user.id);
   }
 }

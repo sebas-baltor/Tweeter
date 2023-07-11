@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { MulterModule } from "@nestjs/platform-express";
+import { Module, forwardRef } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { TweetsController } from './tweets.controller';
@@ -7,10 +7,12 @@ import { TweetsService } from './tweets.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Tweet, TweetSchema } from './schema/tweet.schema';
 import { UsersModule } from 'src/users/users.module';
+import { CommentsModule } from 'src/comments/comments.module';
+import { CommentsService } from 'src/comments/comments.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{name:Tweet.name,schema:TweetSchema}]),
+    MongooseModule.forFeature([{ name: Tweet.name, schema: TweetSchema }]),
     MulterModule.register({
       storage: diskStorage({
         destination: './upload/tweets',
@@ -30,9 +32,13 @@ import { UsersModule } from 'src/users/users.module';
           cb(null, true);
         }
       },
-    }),UsersModule
+    }),
+    UsersModule,
+    // circular depend with comment
+    forwardRef(() => CommentsModule),
   ],
   controllers: [TweetsController],
   providers: [TweetsService],
+  exports: [TweetsService],
 })
 export class TweetsModule {}

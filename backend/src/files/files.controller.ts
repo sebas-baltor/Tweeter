@@ -26,4 +26,14 @@ export class FilesController {
   getFigure(@Param('path') path, @Res() res: Response) {
     return res.sendFile(`/tweets/${path}`, { root: './upload' });
   }
+  @Get('comment-figure/:path')
+  @ApiOperation({ summary: 'return an asset or img from a tweet' })
+  @ApiParam({
+    name: 'path',
+    type: 'string',
+    description: 'identify the comment asset´s resourse',
+  })
+  getCommentFigure(@Param('path') path, @Res() res: Response) {
+    return res.sendFile(`/comments/${path}`, { root: './upload' });
+  }
 }

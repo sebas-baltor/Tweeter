@@ -15,7 +15,9 @@ import { FollowRequest } from './dto/friend-req.dto';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-
+  async top():Promise<User[]>{
+    return await this.userModel.find({},{password:0,email:0,phone:0}).sort({follows:1}).limit(20);
+  }
   async create(createUserDto: CreateUserDto): Promise<User> {
     // encripting password
     const salt = await bcrypt.genSalt(10);
@@ -34,7 +36,7 @@ export class UsersService {
 
   async findById(id: string) {
     try {
-      return await this.userModel.findById(id, { password: 0, email: 0 });
+      return await this.userModel.findById(id, {password:0,email:0,phone:0});
     } catch (error) {
       throw new NotFoundException('Wrong id');
     }
