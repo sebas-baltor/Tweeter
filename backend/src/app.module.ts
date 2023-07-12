@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TweetsModule } from './tweets/tweets.module';
 import { CommentsModule } from './comments/comments.module';
 
+
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/tweeter'),
@@ -19,7 +20,7 @@ import { CommentsModule } from './comments/comments.module';
     UsersModule,
     AuthModule,
     TweetsModule,
-    CommentsModule
+    CommentsModule,
   ],
   controllers: [AppController, FilesController],
   providers: [AppService],

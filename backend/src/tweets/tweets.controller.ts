@@ -18,6 +18,7 @@ import { CreateTweetDto } from './dto/createTweet.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiConsumes,
   ApiOperation,
   ApiParam,
@@ -26,7 +27,10 @@ import {
 import { UsersService } from 'src/users/users.service';
 import { CommentsService } from 'src/comments/comments.service';
 import { ObjectId } from 'mongoose';
-import { ExcludeCommentDto } from 'src/comments/dto/exclude-comment.dto';
+import { ExcludeIds } from 'src/comments/dto/exclude-ids.dto';
+import { HashtagsDto } from './dto/hashtags.dto';
+import { Tweet } from './schema/tweet.schema';
+import { TweetByHastag } from './dto/tweets-by-hashtag.dto';
 @ApiTags('tweets')
 @Controller('tweets')
 export class TweetsController {
@@ -37,19 +41,33 @@ export class TweetsController {
   ) {}
   //the top tweets of the top people
   @Get('top')
+  @ApiOperation({summary:"return the top 30 most comment and liked tweets"})
   async GetTopTweets() {
     return await this.tweetService.GetTop30Tweets();
+  }
+  @Get('top-hashtags')
+  @ApiOperation({summary:"return the top 10 hashtags with most amount of tweets"})
+  async GetTopHashtags():Promise<HashtagsDto[]> {
+    return await this.tweetService.GetTopHashtags();
+  }
+  
+  @Get("by-hashtag")
+  @ApiOperation({summary:"return 40 of the most commented tweets with this hashtag"})
+  async AllTweetByHashtag(@Body() {exclude,hashtag}:TweetByHastag):Promise<Tweet[]>{
+    console.log(hashtag)
+    return await this.tweetService.GetByHashtag(hashtag,exclude);
   }
   // all tweets of a single user
   @ApiBearerAuth()
   @ApiOperation({ summary: 'return all the tweets of a single user' })
-
   @UseGuards(AuthGuard)
   @Get('/:userId/all')
   @ApiParam({
     name: 'userId',
     type: 'ObjectId or string',
     description: 'identify a every single user',
+    example:"64aca3361592c5da8d026817",
+    required:true
   })
   async GetAllUserTweets(@Param('userId') userId: string, @Request() req) {
     return await this.tweetService.GetAllByUserId(userId, req.user.id);
@@ -60,10 +78,13 @@ export class TweetsController {
     name: 'tweetId',
     type: 'ObjectId or string',
     description: 'identify a every single tweet',
+    example:"64aca3361592c5da8d026817",
+    required:true
   })
+  @ApiBody({required:false,type:ExcludeIds,description:"this property is an array of string, is optional and represent all the comments to ignore"})
   async GetAllCommentsExcept(
     @Param('tweetId') tweetId: ObjectId,
-    @Body() {exclude}: ExcludeCommentDto,
+    @Body() {exclude}: ExcludeIds,
   ) {
     console.log(exclude)
     return await this.commentService.GetAllByIdAndNoReply(tweetId, exclude);

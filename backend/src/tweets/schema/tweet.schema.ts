@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTypes } from 'mongoose';
 import { User } from '../../users/schema/user.schema';
-import { Comment } from '../../comments/schema/comment.schema';
 
 export type TweetDocument = HydratedDocument<Tweet>;
 @Schema()
 export class Tweet {
+  _id:string
   @Prop({ required: true, type: SchemaTypes.ObjectId, ref: 'User' })
   from: User;
 
@@ -26,6 +26,9 @@ export class Tweet {
 
   @Prop({required:true})
   isRetweet:number;
+  
+  @Prop({required:false})
+  hashtags:string[];
 
   @Prop({required:false,type:SchemaTypes.ObjectId,ref:"Tweet"})
   originalTweet:Tweet;

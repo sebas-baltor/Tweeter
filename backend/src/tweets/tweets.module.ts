@@ -8,7 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Tweet, TweetSchema } from './schema/tweet.schema';
 import { UsersModule } from 'src/users/users.module';
 import { CommentsModule } from 'src/comments/comments.module';
-import { CommentsService } from 'src/comments/comments.service';
+
 
 @Module({
   imports: [

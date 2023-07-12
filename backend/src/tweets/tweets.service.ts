@@ -3,17 +3,20 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  BadGatewayException,
 } from '@nestjs/common';
 import { Tweet } from './schema/tweet.schema';
 import { CreateTweetDto } from './dto/createTweet.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UsersService } from 'src/users/users.service';
+import { HashtagsDto } from './dto/hashtags.dto';
+
 @Injectable()
 export class TweetsService {
   constructor(
     @InjectModel(Tweet.name) private tweetModel: Model<Tweet>,
-    private userService:UsersService
+    private userService:UsersService,
   ) {}
   async GetOneById(tweetId: string,followerId:string): Promise<Tweet> {
     try {
@@ -102,11 +105,20 @@ export class TweetsService {
     }
   }
   async Publish(createTweet: CreateTweetDto, userId: string): Promise<Tweet> {
-    createTweet.from = userId;
-    let createdTweet = new this.tweetModel(createTweet);
     try {
-      await createdTweet.save();
-      return;
+    createTweet.from = userId;
+    // patron para detectar si hay un hashtag
+    let hashtagRegex = /#\w+/g 
+      if(createTweet.content.match(hashtagRegex)){
+        // separamos el texto por espacion
+        let splitedContent = createTweet.content.split(" ");
+        // filtramos solo los hashtags
+        let filterHashtags:string[] = splitedContent.filter(c=>hashtagRegex.test(c));
+
+        createTweet.hashtags = filterHashtags;
+      }
+
+    return await new this.tweetModel(createTweet).save();
     } catch (error) {
       if (error.code === 11000) {
         throw new ConflictException('Your Tweet shouldn´t be empty');
@@ -131,6 +143,20 @@ export class TweetsService {
       return res;
     } catch {
       throw new BadRequestException();
+    }
+  }
+  async GetTopHashtags():Promise<HashtagsDto[]>{
+    try{
+      return await this.tweetModel.aggregate([{$unwind:{path:"$hashtags"}},{$group:{_id:"$hashtags",tweetsWithIt:{$sum:1}}},{$project:{_id:0,hashtag:"$_id",tweetsWithIt:1}},{$sort:{tweetsWithIt:1}}]).limit(10)
+    }catch{
+      throw new BadGatewayException("somehing went wrong")
+    }
+  }
+  async GetByHashtag(hashtag:string,exclude:string[]=[]):Promise<Tweet[]>{
+    try{
+      return await this.tweetModel.find({_id:{$nin:exclude},visibility:1,isRetweet:0,hashtags:{$in:[hashtag]}}).sort({likes:1}).limit(40)
+    }catch{
+      throw new BadGatewayException("somethig went wrong")
     }
   }
 }

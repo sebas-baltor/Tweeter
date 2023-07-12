@@ -10,6 +10,7 @@ export class CreateTweetDto {
     content:string;
     publishDate:Date;
     imgPath:string;
+    hashtags:string[];
     @ApiProperty({required:true,type:"number",example:"0 or 1",description:"represent if the tweet is a retweet 0=false, 1=true"})
     @IsIn([0,1,"0","1"])
     isRetweet:number;
