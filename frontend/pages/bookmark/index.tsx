@@ -7,7 +7,7 @@ export default function Bookmark() {
         <div>
           <TweetFilter/>
         </div>
-        <div className="cols-span-2">
+        <div className="col-span-2">
           <Tweet/>
         </div>
       </div>
