@@ -57,6 +57,14 @@ export class TweetsController {
     console.log(hashtag)
     return await this.tweetService.GetByHashtag(hashtag,exclude);
   }
+  @Get("most-resent-people-follow")
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiBody({type:ExcludeIds,required:false,description:"this paramether is an optional one, you must past if you want to ignore some tweet in the response"})
+  @ApiOperation({summary:"return 50 of the most recent tweets posted by the people I follow and also ignore the tweets I have yet"})
+  async TweetsRecentsOfFollows(@Body() excludeIds:ExcludeIds,@Request() req):Promise<Tweet[]>{
+    return await this.tweetService.GetRecentsTweetsOfFollows(req.user.id,excludeIds);
+  }
   // all tweets of a single user
   @ApiBearerAuth()
   @ApiOperation({ summary: 'return all the tweets of a single user' })

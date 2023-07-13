@@ -11,6 +11,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UsersService } from 'src/users/users.service';
 import { HashtagsDto } from './dto/hashtags.dto';
+import { ExcludeIds } from 'src/comments/dto/exclude-ids.dto';
 
 @Injectable()
 export class TweetsService {
@@ -155,6 +156,14 @@ export class TweetsService {
   async GetByHashtag(hashtag:string,exclude:string[]=[]):Promise<Tweet[]>{
     try{
       return await this.tweetModel.find({_id:{$nin:exclude},visibility:1,isRetweet:0,hashtags:{$in:[hashtag]}}).sort({likes:1}).limit(40)
+    }catch{
+      throw new BadGatewayException("somethig went wrong")
+    }
+  }
+  async GetRecentsTweetsOfFollows (userId: string, {exclude}:ExcludeIds):Promise<Tweet[]>{
+    try{
+      let user = await this.userService.findById(userId);
+      return await this.tweetModel.find({from:{$in:user.following},visibility:1,_id:{$nin:exclude}}).sort({publishDate:1}).limit(50)
     }catch{
       throw new BadGatewayException("somethig went wrong")
     }
