@@ -16,18 +16,20 @@ const persistConfig = {
   key: "root",
   storage,
 };
-const appPersistedReducer = persistReducer(persistConfig, appReducer);
+const persistedReducer = persistReducer(persistConfig, appReducer);
 
 const store = configureStore({
-  reducer: appPersistedReducer,
-  middleware: (getDefaultMiddleware) => 
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
 });
-const appPersistor = persistStore(store);
 
+
+const persistor = persistStore(store);
+export { store, persistor };
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
