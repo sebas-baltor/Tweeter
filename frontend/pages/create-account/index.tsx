@@ -37,8 +37,8 @@ export default function Login() {
               bio: Yup.string().required("required"),
               phone: Yup.string()
                 .matches(
-                  /^\+(?:[0-9]●?){6,14}$/gm,
-                  "It must have this patron '+ lada number' with any space in between"
+                  /^\d{10}$/,
+                  "It must have 10 numbers"
                 )
                 .min(6, "It must have 6 number and")
                 .max(14, "It mustn't exceed 14 numbers")
