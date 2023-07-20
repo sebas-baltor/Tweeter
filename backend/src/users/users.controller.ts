@@ -40,6 +40,7 @@ export class UsersController {
     },
     @Body() createUserDto: CreateUserDto,
   ) {
+    console.log(createUserDto)
     // path of every single image, make it easy to access for the client
     createUserDto.avatarPath = `/files/user-media/${files.avatar[0].filename}`;
     createUserDto.backgroundPath = `/files/user-media/${files.background[0].filename}`;
@@ -50,6 +51,13 @@ export class UsersController {
   @ApiOperation({ summary: 'return the top 20 most followed users' })
   async GetTop20(): Promise<User[]> {
     return await this.usersService.top();
+  }
+  @Get('profile')
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.UNAUTHORIZED)
+  @ApiOperation({ summary: 'return your profile data' })
+  async getProfile(@Request() req): Promise<User> {
+    return await this.usersService.findById(req.user.id);
   }
   @Get(':id')
   @HttpCode(HttpStatus.NOT_FOUND)

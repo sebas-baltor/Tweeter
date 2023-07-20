@@ -2,7 +2,18 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { IoPersonAddSharp } from "react-icons/io5";
 import Tweet from "@/components/Tweet";
 import ExploreFilter from "@/components/ExploreFilter";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
 export default function Explore() {
+  let token = Boolean(useSelector((state: RootState) => state.token));
+  const router = useRouter();
+  useEffect(()=>{
+    if(token == false){
+      router.push("/login")
+    }
+  },[])
   return (
     <section className="w-full p-3 xl:max-w-[1280px] mx-auto -translate-y-[5vh] my-28 mx-4">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 w-full px-4">

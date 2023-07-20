@@ -55,5 +55,5 @@ export class CreateUserDto {
     required: true,
     example:"img in [.jpeg, .png, .svg, .jpg] format"
   })
-  backdround: [Object];
+  background: [Object];
 }

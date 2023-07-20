@@ -1,8 +1,22 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { IUserLogin } from "@/lib/Interface/User";
 import * as Yup from "yup";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
+import { useLogin, useProfile } from "@/lib/hooks/clientFetch";
+import { setToken, setUser } from "@/lib/redux/slice";
 
 export default function Login() {
+  let dispatch = useDispatch();
+  let token = Boolean(useSelector((state: RootState) => state.token));
+  const router = useRouter();
+  useEffect(() => {
+    if (token == true) {
+      router.push("/");
+    }
+  }, []);
   // formik initial state
   const initialValues: IUserLogin = {
     email: "",
@@ -16,8 +30,16 @@ export default function Login() {
         <div>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={async (values, { resetForm }) => {
+              let {access_token} = await useLogin(values);
+              let profile = await useProfile(access_token);
+              console.log(profile);
+              if (access_token && profile.error != "") {
+                dispatch(setToken(access_token));
+                dispatch(setUser(profile));
+                resetForm();
+                router.push("/");
+              }
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string()
@@ -28,11 +50,7 @@ export default function Login() {
                 .required("required"),
               password: Yup.string()
                 .min(8, "It must contain at least 8 characters")
-                .required("required")
-                .matches(
-                  /^.*((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-                  "It must contain a number, a uppercase and a special character"
-                ),
+                .required("required"),
             })}
           >
             <Form className="w-full flex flex-col gap-4">

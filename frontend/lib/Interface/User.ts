@@ -1,5 +1,5 @@
 export interface IUserCreate{
-    name:string,
+    [name:string]:string,
     bio:string,
     phone:string,
     email:string,

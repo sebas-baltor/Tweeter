@@ -1,6 +1,6 @@
 export interface ICreateAccountImages{
     previewProfilePhoto:string,
-    profilePhotoPath:string,
+    avatar:Blob,
     previewBackgroundPhoto:string,
-    backgroundPhotoPath:string
+    background:Blob
 }

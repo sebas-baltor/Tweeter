@@ -1,12 +1,27 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { IUserCreate } from "@/lib/Interface/User";
+import { IUserCreate, IUserLogin } from "@/lib/Interface/User";
 import { ICreateAccountImages } from "@/lib/Interface/Images";
 import Dropzone from "react-dropzone";
 import * as Yup from "yup";
 import { AiFillCamera } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
+import { useDispatch } from "react-redux";
+import { setUser, setToken } from "@/lib/redux/slice";
+import { useCreateUser, useLogin } from "@/lib/hooks/clientFetch";
 export default function Login() {
+  const dispatch = useDispatch();
+  let token = Boolean(useSelector((state: RootState) => state.token));
+  const router = useRouter();
+  useEffect(() => {
+    if (token == true) {
+      router.push("/login");
+    }
+  }, []);
+
   // formik initial state
   const initialValues: IUserCreate = {
     name: "",
@@ -19,8 +34,8 @@ export default function Login() {
   const [preview, setPreview] = useState<ICreateAccountImages>({
     previewBackgroundPhoto: "",
     previewProfilePhoto: "",
-    profilePhotoPath: "",
-    backgroundPhotoPath: "",
+    avatar: new Blob(),
+    background: new Blob(),
   });
   return (
     <div className="min-h-screen flex justify-center items-center mx-4 my-20">
@@ -29,17 +44,40 @@ export default function Login() {
         <div>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={async(values,{resetForm}) => {
+              // content to store
+              let formData = new FormData();
+              for (let key in values) {
+                formData.append(key, values[key]);
+              }
+              formData.append("avatar", preview.avatar);
+              formData.append("background", preview.background);
+              // credential of the user in case of everything will be ok
+              let credentials: IUserLogin = {
+                email: values.email,
+                password: values.password,
+              };
+              // fetch for user
+              const user = await useCreateUser(formData);
+              if (user) {
+                console.log(user)
+                
+                dispatch(setUser(user));
+                // fetch for token
+                const {access_token} = await useLogin(credentials);
+                if (access_token) {
+                  console.log(access_token)
+                  dispatch(setToken(access_token))
+                  resetForm();
+                  router.push("/");
+                };
+              }
             }}
             validationSchema={Yup.object().shape({
               name: Yup.string().required("required"),
               bio: Yup.string().required("required"),
               phone: Yup.string()
-                .matches(
-                  /^\d{10}$/,
-                  "It must have 10 numbers"
-                )
+                .matches(/^\d{10}$/, "It must have 10 numbers")
                 .min(6, "It must have 6 number and")
                 .max(14, "It mustn't exceed 14 numbers")
                 .required("required"),
@@ -71,7 +109,7 @@ export default function Login() {
                     setPreview({
                       ...preview,
                       previewProfilePhoto: objectUrl,
-                      profilePhotoPath: acceptedFiles[0].name,
+                      avatar: acceptedFiles[0],
                     });
                   }}
                 >
@@ -167,7 +205,7 @@ export default function Login() {
                     setPreview({
                       ...preview,
                       previewBackgroundPhoto: objectUrl,
-                      backgroundPhotoPath: acceptedFiles[0].name,
+                      background: acceptedFiles[0],
                     });
                   }}
                 >

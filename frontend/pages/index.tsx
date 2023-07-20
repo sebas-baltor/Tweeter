@@ -2,8 +2,19 @@ import PostTweet from '@/components/PostTweet';
 import Tweet from '@/components/Tweet';
 import Trending from '@/components/Trending';
 import FollowRecomendation from '@/components/FollowRecomendation';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/redux/store';
 
 export default function Home() {
+  let token = Boolean(useSelector((state: RootState) => state.token));
+  const router = useRouter();
+  useEffect(()=>{
+    if(token == false){
+      router.push("/login")
+    }
+  },[])
   return (
     <>
       <section className="w-full p-3 xl:max-w-[1280px] mx-auto -translate-y-[5vh] my-28 mx-4">

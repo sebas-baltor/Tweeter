@@ -7,19 +7,20 @@ import { IoPersonAddSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
 export default function Profile() {
+  let profile = useSelector((state: RootState) => state.profile);
   let token = Boolean(useSelector((state: RootState) => state.token));
   const router = useRouter();
-  useEffect(()=>{
-    if(token == false){
-      router.push("/login")
+  useEffect(() => {
+    if (token == false) {
+      router.push("/login");
     }
-  },[])
+  }, []);
   return (
     <div>
       <section className="w-full h-[40vh] object-cover overflow-hidden">
         <img
           className="w-full h-full"
-          src="https://marketplace.canva.com/EAD2962NKnQ/2/0/1600w/canva-rainbow-gradient-pink-and-purple-virtual-background-_Tcjok-d9b4.jpg"
+          src={`http://localhost:3001${profile.backgroundPath}`}
           alt="bg"
         />
       </section>
@@ -29,7 +30,7 @@ export default function Profile() {
             <div className="w-36 h-36 rounded-lg p-1 bg-white -translate-y-[30%]">
               <img
                 className="w-full h-full rounded-lg  object-cover"
-                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+                src={`http://localhost:3001${profile.avatarPath}`}
                 alt="profile photo"
               />
             </div>
@@ -40,7 +41,7 @@ export default function Profile() {
             <div className="flex-col w-full">
               <div className="flex justify-between gap-4">
                 <div className="flex gap-3 items-center">
-                  <h2 className="font-bold text-xl">User Name</h2>
+                  <h2 className="font-bold text-xl">{profile.name}</h2>
                   <p>
                     <span className="font-bold">2.666</span> following
                   </p>
@@ -55,11 +56,7 @@ export default function Profile() {
                   </button>
                 </div>
               </div>
-              <div className="text-xl w-full md:w-1/2">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum
-                accusamus inventore quas cupiditate ex iste possimus natus ut
-                debitis tempore.
-              </div>
+              <div className="text-xl w-full md:w-1/2">{profile.bio}</div>
             </div>
           </div>
         </div>

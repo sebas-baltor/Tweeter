@@ -11,6 +11,7 @@ async function bootstrap() {
   .addTag("tweeter").addBearerAuth()
   .build();
   app.useGlobalPipes(new ValidationPipe())
+  app.enableCors()
   const document = SwaggerModule.createDocument(app,config);
   SwaggerModule.setup("api-documentation",app,document);
   await app.listen(3001);

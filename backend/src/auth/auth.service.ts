@@ -23,7 +23,8 @@ export class AuthService {
       throw new NotFoundException('Wrong credentials');
     }
     // the password wasn't in this user
-    if (!bcrypt.compare(password, user.password)) {
+    let compared = await bcrypt.compare(password, user.password)
+    if (!compared) {
       throw new UnauthorizedException();
     }
     const payload = { id: user._id };
